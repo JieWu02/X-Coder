@@ -1,0 +1,4 @@
+redis
+fastapi[standard]
+uvicorn
+psutil
