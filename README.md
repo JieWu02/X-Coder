@@ -1,4 +1,25 @@
-# X-Coder
+<p align="center">
+  <img src="logo.png" alt="X-Coder Logo" width="400"/>
+</p>
+
+<h1 align="center">X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests</h1>
+
+<p align="center">
+  <b>Jie Wu, Haoling Li, Xin Zhang, Jiani Guo, Jane Luo, Steven Liu, Yangyu Huang, Ruihang Chu, Scarlett Li, Yujiu Yang</b>
+</p>
+
+<p align="center">
+  Tsinghua University &nbsp;|&nbsp; Microsoft
+</p>
+
+<p align="center">
+  <a href="https://huggingface.co/IIGroup/X-Coder-SFT-Qwen3-8B">Model</a> &nbsp;|&nbsp;
+  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-SFT-376k">SFT Data</a> &nbsp;|&nbsp;
+  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-RL-40k">RL Data</a> &nbsp;|&nbsp;
+  <a href="https://openreview.net/forum?id=jp4dzBilqH">Paper</a>
+</p>
+
+---
 
 - [SFT Training](#sft-training)
 - [RLVR Training](#rlvr-training)
