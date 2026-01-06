@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="X-Coder Logo" width="120"/>
+  <img src="assets/logo.png" alt="X-Coder Logo" width="120"/>
 </p>
 
 <h1 align="center">X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests</h1>
@@ -21,10 +21,29 @@
 
 ---
 
+<p align="center">
+  <img src="assets/overview.png" alt="Overview" width="800"/>
+</p>
+
+---
+
+- [Pipeline](#pipeline)
+- [Results](#results)
 - [SFT Training](#sft-training)
 - [RLVR Training](#rlvr-training)
-- [Dataset Description](#dataset-description)
 - [Citation](#citation)
+
+## Pipeline
+
+<p align="center">
+  <img src="assets/pipeline.png" alt="Pipeline" width="800"/>
+</p>
+
+## Results
+
+<p align="center">
+  <img src="assets/results.png" alt="Results" width="800"/>
+</p>
 
 ## SFT Training
 
