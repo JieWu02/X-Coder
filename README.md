@@ -1,7 +1,4 @@
 # RLVR
-
-## Table of Contents
-
 - [RLVR Quick Start](#quick-start)
 - [Dataset Description](#dataset-description)
 - [RL Training Recipes](#training-recipes)
@@ -96,6 +93,7 @@ note={under review}
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
