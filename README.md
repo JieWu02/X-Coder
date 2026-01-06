@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="X-Coder Logo" width="200"/>
+  <img src="logo.png" alt="X-Coder Logo" width="120"/>
 </p>
 
 <h1 align="center">X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests</h1>
