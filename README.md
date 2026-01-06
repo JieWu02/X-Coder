@@ -5,7 +5,7 @@
 <h1 align="center">X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests</h1>
 
 <p align="center">
-  <b>Jie Wu, Haoling Li, Xin Zhang, Jiani Guo, Jane Luo, Steven Liu, Yangyu Huang, Ruihang Chu, Scarlett Li, Yujiu Yang</b>
+  <b><a href="https://jiewu02.github.io/">Jie Wu</a>, <a href="https://scholar.google.com/citations?user=uQm86UUAAAAJ">Haoling Li</a>, <a href="https://scholar.google.com/citations?user=qVmmxogAAAAJ">Xin Zhang</a>, <a href="https://scholar.google.com/citations?user=fZ4lXDoAAAAJ">Jiani Guo</a>, Jane Luo, Steven Liu, <a href="https://www.microsoft.com/en-us/research/people/yanghuan/">Yangyu Huang</a>, <a href="https://ruihang-chu.github.io/">Ruihang Chu</a>, <a href="https://www.microsoft.com/en-us/research/people/scarli/">Scarlett Li</a>, <a href="https://www.sigs.tsinghua.edu.cn/yyj_en/main.htm">Yujiu Yang</a></b>
 </p>
 
 <p align="center">
