@@ -66,11 +66,9 @@ pip install sandbox_fusion pyext
 cd rl-recipe
 
 # 4. Download rl training data
-cd ..
 python download_data.py
 
 # 5. Start training
-cd rl-recipe
 bash train_scripts/install.sh
 bash train_scripts/xcoder-rl-train.sh
 ```
@@ -82,6 +80,8 @@ The rl training data (~17GB total) is hosted on HuggingFace: [IIGroup/X-Coder-RL
 #### Download RL Data
 
 ```bash
+cd rl-recipe
+
 # Download all data (~17GB)
 python download_data.py
 
