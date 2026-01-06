@@ -25,6 +25,8 @@
   <img src="assets/overview.png" alt="Overview" width="800"/>
 </p>
 
+**Left:** SynthSmith generates high-quality synthetic tasks, solutions, and test cases to support both SFT and RL training. **Right:** Avg@8 results on LiveCodeBench. X-Coder achieves significant performance gains on competitive programming using fully synthetic data.
+
 ---
 
 - [Pipeline](#pipeline)
@@ -39,11 +41,15 @@
   <img src="assets/pipeline.png" alt="Pipeline" width="800"/>
 </p>
 
+**Framework of SynthSmith.** SynthSmith first extracts and evolves competitive programming related features from small-scale code instruction data and merges them into tree structures. It then samples subtrees from the feature tree, selects a compatible feature set, and formulates a scenario that naturally integrates these consistent features. Novel tasks are generated based on a proposed scenario according to specific styles. Advanced reasoning models are used to synthesize solutions and tests for the generated tasks, which are further cross-verified using the proposed dual-verification strategy to yield reliable test outputs and the top solution.
+
 ## Results
 
 <p align="center">
   <img src="assets/results.png" alt="Results" width="800"/>
 </p>
+
+**Performance on LiveCodeBench v5.** X-Coder shows strong coding expertise with fewer, fully synthetic tasks, and achieves additional gains through subsequent RL stages.
 
 ## SFT Training
 
