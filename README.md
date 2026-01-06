@@ -1,10 +1,52 @@
-# RLVR
-- [RLVR Quick Start](#quick-start)
+# X-Coder
+
+- [SFT Training](#sft-training)
+- [RLVR Training](#rlvr-training)
 - [Dataset Description](#dataset-description)
-- [RL Training Recipes](#training-recipes)
 - [Citation](#citation)
 
-## RLVR Quick Start
+## SFT Training
+
+### Environment Setup
+
+```bash
+pip install ms-swift -U
+```
+
+### Data Preparation
+
+Download and convert the SFT training data from HuggingFace:
+
+```bash
+cd sft-recipe
+python download_and_convert_data.py
+```
+
+This will download [IIGroup/X-Coder-SFT-376k](https://huggingface.co/datasets/IIGroup/X-Coder-SFT-376k) and convert it to `hybrid_376k.jsonl` format with `query` and `response` fields.
+
+### Start SFT Training
+
+For multi-node training (8 nodes x 8 GPUs):
+
+```bash
+# On each node, set the appropriate environment variables:
+export NODE_RANK=<node_rank>  # 0, 1, 2, ..., 7
+export MASTER_ADDR=<master_node_ip>
+export MASTER_PORT=29500
+
+cd sft-recipe
+bash train_sft.sh
+```
+
+For single-node training, modify `train_sft.sh`:
+- Set `NNODES=1`
+- Adjust `CUDA_VISIBLE_DEVICES` as needed
+
+---
+
+## RLVR Training
+
+### RLVR Quick Start
 
 ```bash
 # 1. Clone the repository
@@ -33,11 +75,11 @@ bash train_scripts/install.sh
 bash train_scripts/xcoder-rl-train.sh
 ```
 
-## RL Data Preparation
+### RL Data Preparation
 
 The rl training data (~17GB total) is hosted on HuggingFace: [IIGroup/X-Coder-RL-40k](https://huggingface.co/datasets/IIGroup/X-Coder-RL-40k)
 
-### Download RL Data
+#### Download RL Data
 
 ```bash
 # Download all data (~17GB)
@@ -47,7 +89,7 @@ python download_data.py
 python download_data.py --syn-only
 ```
 
-### Data Structure
+#### Data Structure
 
 After downloading, the data will be organized as:
 
@@ -70,7 +112,7 @@ rl-recipe/
         └── test_wo_prompt.parquet
 ```
 
-## Code Judge
+### Code Judge
 
 A code execution and evaluation service is included in `rl-recipe/code-judge/`.
 
