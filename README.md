@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="X-Coder Logo" width="400"/>
+  <img src="logo.png" alt="X-Coder Logo" width="200"/>
 </p>
 
 <h1 align="center">X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests</h1>
@@ -13,10 +13,10 @@
 </p>
 
 <p align="center">
-  <a href="https://huggingface.co/IIGroup/X-Coder-SFT-Qwen3-8B">Model</a> &nbsp;|&nbsp;
-  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-SFT-376k">SFT Data</a> &nbsp;|&nbsp;
-  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-RL-40k">RL Data</a> &nbsp;|&nbsp;
-  <a href="https://openreview.net/forum?id=jp4dzBilqH">Paper</a>
+  <a href="https://huggingface.co/IIGroup/X-Coder-SFT-Qwen3-8B"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue" alt="Model"></a> &nbsp;
+  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-SFT-376k"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-SFT%20Data-yellow" alt="SFT Data"></a> &nbsp;
+  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-RL-40k"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-RL%20Data-green" alt="RL Data"></a> &nbsp;
+  <a href="https://openreview.net/forum?id=jp4dzBilqH"><img src="https://img.shields.io/badge/OpenReview-Paper-red" alt="Paper"></a>
 </p>
 
 ---
