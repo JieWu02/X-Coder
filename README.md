@@ -2,13 +2,12 @@
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
-- [Training](#training)
+- [RLVR Quick Start](#quick-start)
 - [Dataset Description](#dataset-description)
-- [Training Recipes](#training-recipes)
+- [RL Training Recipes](#training-recipes)
 - [Citation](#citation)
 
-## Quick Start
+## RLVR Quick Start
 
 ```bash
 # 1. Clone the repository
@@ -37,11 +36,11 @@ bash train_scripts/install.sh
 bash train_scripts/xcoder-rl-train.sh
 ```
 
-## Data Preparation
+## RL Data Preparation
 
 The rl training data (~17GB total) is hosted on HuggingFace: [IIGroup/X-Coder-RL-40k](https://huggingface.co/datasets/IIGroup/X-Coder-RL-40k)
 
-### Download Data
+### Download RL Data
 
 ```bash
 # Download all data (~17GB)
@@ -76,11 +75,11 @@ rl-recipe/
 
 ## Code Judge
 
-A code execution and evaluation service is included in `rl-recipe/code-judge/`. See its README for setup instructions.
+A code execution and evaluation service is included in `rl-recipe/code-judge/`.
 
 ## Citation
 
-If you use this work, please cite:
+If you find this work helpful, please cite:
 
 ```bibtex
 @inproceedings{
@@ -97,5 +96,6 @@ note={under review}
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
