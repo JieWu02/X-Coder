@@ -1,6 +1,4 @@
-# X-Coder RL
-
-X-Coder RL training framework for code generation models using reinforcement learning.
+# RLVR
 
 ## Table of Contents
 
@@ -99,4 +97,5 @@ note={under review}
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
