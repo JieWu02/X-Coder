@@ -1,10 +1,36 @@
 #!/bin/bash
 
+# =============================================================================
 # 批量转换 FSDP checkpoint 到 HuggingFace 格式
-# 使用方法: ./convert_checkpoints.sh <checkpoint_dir> <hf_model_path> <output_base_dir>
-# 示例: ./convert_checkpoints.sh ./models Qwen/Qwen2.5-Coder-7B-Instruct ./hf_models
+# =============================================================================
+#
+# 使用方法:
+#   ./fsdp2hf_folder_ckpt.sh <checkpoint_dir> <hf_model_path> <output_base_dir>
+#
+# 示例:
+#   bash fsdp2hf_folder_ckpt.sh ./models Qwen/Qwen2.5-Coder-7B-Instruct ./hf_models
+#
+# 参数说明:
+#   checkpoint_dir  - 包含 global_step_* 目录的 checkpoint 根目录
+#   hf_model_path   - 原始 HuggingFace 模型路径 (用于复制 config, tokenizer, generation_config 等)
+#   output_base_dir - 输出目录，转换后的 HF 模型将保存在此
+#
+# 输出结构:
+#   hf_models/
+#   ├── checkpoint_100/
+#   │   ├── config.json
+#   │   ├── generation_config.json
+#   │   ├── tokenizer.json
+#   │   ├── tokenizer_config.json
+#   │   ├── model.safetensors
+#   │   └── SUCCESS
+#   ├── checkpoint_200/
+#   │   └── ...
+#   └── ...
+#
+# =============================================================================
 
-set -e
+# chmod +x fsdp2hf_folder_ckpt.sh
 
 # 检查参数
 if [ $# -ne 3 ]; then
@@ -13,8 +39,20 @@ if [ $# -ne 3 ]; then
     echo ""
     echo "参数说明:"
     echo "  checkpoint_dir  - 包含 global_step_* 目录的 checkpoint 根目录"
-    echo "  hf_model_path   - 原始 HuggingFace 模型路径 (用于复制 config, tokenizer 等)"
+    echo "  hf_model_path   - 原始 HuggingFace 模型路径 (用于复制 config, tokenizer, generation_config 等)"
     echo "  output_base_dir - 输出目录，转换后的 HF 模型将保存在此"
+    echo ""
+    echo "输出结构:"
+    echo "  hf_models/"
+    echo "  ├── checkpoint_100/"
+    echo "  │   ├── config.json"
+    echo "  │   ├── generation_config.json"
+    echo "  │   ├── tokenizer.json"
+    echo "  │   ├── model.safetensors"
+    echo "  │   └── SUCCESS"
+    echo "  ├── checkpoint_200/"
+    echo "  │   └── ..."
+    echo "  └── ..."
     exit 1
 fi
 
@@ -27,36 +65,67 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 检查输入目录是否存在
 if [ ! -d "$CHECKPOINT_DIR" ]; then
-    echo "错误: checkpoint 目录不存在: $CHECKPOINT_DIR"
+    echo "错误: checkpoint目录不存在: $CHECKPOINT_DIR"
     exit 1
 fi
 
 # 创建输出目录
 mkdir -p "$OUTPUT_BASE_DIR"
 
-echo "=========================================="
-echo "开始批量转换 checkpoint..."
+echo "开始批量转换checkpoint..."
 echo "输入目录: $CHECKPOINT_DIR"
-echo "HF 模型路径: $HF_MODEL_PATH"
+echo "HF模型路径: $HF_MODEL_PATH"
 echo "输出目录: $OUTPUT_BASE_DIR"
-echo "=========================================="
+echo "----------------------------------------"
 
-# 查找所有 global_step_* 目录
+# 使用数组存储checkpoint路径，避免子shell问题
 checkpoint_paths=()
-echo "查找 global_step_* 目录..."
+
+# 首先尝试查找global_step_*目录
+echo "查找global_step_*目录..."
 while IFS= read -r -d '' path; do
     # 跳过输出目录
     if [[ "$path" == "$OUTPUT_BASE_DIR"* ]]; then
         continue
     fi
-    echo "找到 checkpoint 目录: $path"
+    echo "找到checkpoint目录: $path"
     checkpoint_paths+=("$path")
-done < <(find "$CHECKPOINT_DIR" -type d -name "global_step_*" -print0 | sort -z)
+done < <(find "$CHECKPOINT_DIR" -type d -name "global_step_*" -print0)
 
-echo "总共找到 ${#checkpoint_paths[@]} 个 checkpoint 目录"
+# 如果没有找到global_step_*目录，尝试其他模式
+if [ ${#checkpoint_paths[@]} -eq 0 ]; then
+    echo "未找到global_step_*目录，尝试其他模式..."
+    while IFS= read -r -d '' path; do
+        # 跳过输出目录
+        if [[ "$path" == "$OUTPUT_BASE_DIR"* ]]; then
+            continue
+        fi
+        echo "找到checkpoint目录: $path"
+        checkpoint_paths+=("$path")
+    done < <(find "$CHECKPOINT_DIR" -type d \( -name "*checkpoint*" -o -name "*ckpt*" \) -print0)
+fi
+
+# 如果仍然没有找到，尝试直接查找包含模型文件的目录
+if [ ${#checkpoint_paths[@]} -eq 0 ]; then
+    echo "尝试查找包含模型文件的目录..."
+    while IFS= read -r -d '' path; do
+        # 跳过输出目录
+        if [[ "$path" == "$OUTPUT_BASE_DIR"* ]]; then
+            continue
+        fi
+        # 检查目录是否包含模型文件
+        if [ -f "$path/consolidated.00.pth" ] || [ -f "$path/consolidated.00-of-*.pth" ] || [ -d "$path/consolidated" ]; then
+            echo "找到包含模型文件的目录: $path"
+            checkpoint_paths+=("$path")
+        fi
+    done < <(find "$CHECKPOINT_DIR" -type d -print0)
+fi
+
+echo "总共找到 ${#checkpoint_paths[@]} 个checkpoint目录"
 
 if [ ${#checkpoint_paths[@]} -eq 0 ]; then
-    echo "错误: 没有找到任何 global_step_* 目录"
+    echo "错误: 没有找到任何checkpoint目录"
+    echo "请检查目录结构，或者手动指定checkpoint目录"
     exit 1
 fi
 
@@ -65,8 +134,9 @@ total_processed=0
 total_success=0
 total_failed=0
 
-# 处理每个 checkpoint
+# 处理每个checkpoint
 for checkpoint_path in "${checkpoint_paths[@]}"; do
+    # 提取checkpoint名称
     checkpoint_name=$(basename "$checkpoint_path")
     # 将 global_step_XXX 转换为 checkpoint_XXX
     step_num=$(echo "$checkpoint_name" | sed 's/global_step_//')
@@ -97,8 +167,9 @@ for checkpoint_path in "${checkpoint_paths[@]}"; do
 
     # 执行转换
     echo "开始转换模型权重..."
-    if python -m verl.model_merger merge \
+    if python "$SCRIPT_DIR/scripts/model_merger.py" \
         --backend fsdp \
+        --hf_model_path "$HF_MODEL_PATH" \
         --local_dir "$actor_dir" \
         --target_dir "$output_dir"; then
 
@@ -131,7 +202,6 @@ for checkpoint_path in "${checkpoint_paths[@]}"; do
             python3 << EOF
 from transformers import AutoTokenizer, AutoConfig, GenerationConfig
 import os
-import shutil
 
 output_dir = "$output_dir"
 hf_model_path = "$HF_MODEL_PATH"
