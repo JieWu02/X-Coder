@@ -2,7 +2,7 @@
   <img src="assets/logo.png" alt="X-Coder Logo" width="120"/>
 </p>
 
-<h1 align="left">X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests</h1>
+<h1 align="center">X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests</h1>
 
 <p align="center">
   <b><a href="https://jiewu02.github.io/">Jie Wu</a><sup>*</sup>, <a href="https://scholar.google.com/citations?user=uQm86UUAAAAJ">Haoling Li</a><sup>*</sup>, <a href="https://scholar.google.com/citations?user=qVmmxogAAAAJ">Xin Zhang</a><sup>†‡</sup>, <a href="https://scholar.google.com/citations?user=fZ4lXDoAAAAJ">Jiani Guo</a>, Jane Luo, Steven Liu, <a href="https://www.microsoft.com/en-us/research/people/yanghuan/">Yangyu Huang</a>, <a href="https://ruihang-chu.github.io/">Ruihang Chu</a><sup>‡</sup>, <a href="https://www.microsoft.com/en-us/research/people/scarli/">Scarlett Li</a>, <a href="https://www.sigs.tsinghua.edu.cn/yyj_en/main.htm">Yujiu Yang</a></b>
@@ -187,6 +187,7 @@ note={under review}
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
