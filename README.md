@@ -57,6 +57,8 @@
 
 ## SFT Training
 
+SFT training can be performed using various frameworks such as [ms-swift](https://github.com/modelscope/ms-swift), [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory), or [Megatron-LM](https://github.com/NVIDIA/Megatron-LM). Below we provide a simple example using ms-swift.
+
 ### Environment Setup
 
 ```bash
@@ -185,7 +187,6 @@ note={under review}
 ## License
 
 This project is licensed under the Apache License 2.0.
-
 
 
 
