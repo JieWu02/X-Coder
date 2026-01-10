@@ -23,15 +23,11 @@
   <a href="https://openreview.net/forum?id=jp4dzBilqH"><img src="https://img.shields.io/badge/OpenReview-Paper-red" alt="Paper"></a>
 </p>
 
----
-
 <p align="center">
   <img src="assets/overview.png" alt="Overview" width="800"/>
 </p>
 
 **Left:** SynthSmith generates high-quality synthetic tasks, solutions, and test cases to support both SFT and RL training. **Right:** Avg@8 results on LiveCodeBench. X-Coder achieves significant performance gains on competitive programming using fully synthetic data.
-
----
 
 - [Pipeline](#pipeline)
 - [Results](#results)
@@ -187,6 +183,7 @@ note={under review}
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
