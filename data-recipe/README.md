@@ -1,4 +1,4 @@
-# SFT Data Recipe: Question, Answer, and Test Synthesis
+# Data Recipe: Question, Answer, and Test Synthesis
 
 ## Overview
 
