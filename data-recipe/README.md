@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository provides tools for synthesizing training data for supervised fine-tuning (SFT) of code generation models across three stages:
+This repository provides tools for synthesizing code training data for SFT and RLVR:
 
 1. **Question Generation** - Generate diverse competitive programming questions based on feature trees
 2. **Answer Generation** - Generate detailed code solutions with comprehensive explanations
