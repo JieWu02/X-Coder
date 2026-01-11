@@ -29,6 +29,8 @@
 
 **Left:** SynthSmith generates high-quality synthetic tasks, solutions, and test cases to support both SFT and RL training. **Right:** Avg@8 results on LiveCodeBench. X-Coder achieves significant performance gains on competitive programming using fully synthetic data.
 
+- For the full data synthesis workflow (question/answer/test generation), see `data-recipe/README.md`.
+
 - [Pipeline](#pipeline)
 - [Results](#results)
 - [SFT Training](#sft-training)
@@ -183,6 +185,7 @@ note={under review}
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
