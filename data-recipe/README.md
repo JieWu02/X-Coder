@@ -1,4 +1,4 @@
-# SFT Data Recipe: Two-Stage Question-Answer Generation
+# SFT Data Recipe: Question, Answer, and Test Synthesis
 
 ## Overview
 
