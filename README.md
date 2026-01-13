@@ -17,11 +17,23 @@
 </p>
 
 <p align="center">
-  <a href="https://huggingface.co/IIGroup/X-Coder-SFT-Qwen3-8B"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue" alt="Model"></a> &nbsp;
-  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-SFT-376k"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-SFT%20Data-yellow" alt="SFT Data"></a> &nbsp;
-  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-RL-40k"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-RL%20Data-green" alt="RL Data"></a> &nbsp;
-  <a href="https://openreview.net/forum?id=jp4dzBilqH"><img src="https://img.shields.io/badge/OpenReview-Paper-red" alt="Paper"></a>
+  <a href="https://huggingface.co/IIGroup/X-Coder-SFT-Qwen3-8B">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue" alt="Model">
+  </a> &nbsp;
+  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-SFT-376k">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-SFT%20Data-yellow" alt="SFT Data">
+  </a> &nbsp;
+  <a href="https://huggingface.co/datasets/IIGroup/X-Coder-RL-40k">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-RL%20Data-green" alt="RL Data">
+  </a> &nbsp;
+  <a href="https://openreview.net/forum?id=jp4dzBilqH">
+    <img src="https://img.shields.io/badge/OpenReview-Paper-red" alt="Paper">
+  </a> &nbsp;
+  <a href="https://arxiv.org/abs/2601.06953">
+    <img src="https://img.shields.io/badge/arXiv-2601.06953-b31b1b" alt="arXiv">
+  </a>
 </p>
+
 
 <p align="center">
   <img src="assets/overview.png" alt="Overview" width="800"/>
@@ -184,6 +196,7 @@ If you find this work helpful, please cite:
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
