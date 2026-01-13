@@ -170,20 +170,21 @@ A code execution and evaluation service is included in `rl-recipe/code-judge/`.
 If you find this work helpful, please cite:
 
 ```bibtex
-@inproceedings{
-anonymous2025xcoder,
-title={X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests},
-author={Anonymous},
-booktitle={Submitted to The Fourteenth International Conference on Learning Representations},
-year={2025},
-url={https://openreview.net/forum?id=jp4dzBilqH},
-note={under review}
+@misc{wu2026xcoderadvancingcompetitiveprogramming,
+      title={X-Coder: Advancing Competitive Programming with Fully Synthetic Tasks, Solutions, and Tests}, 
+      author={Jie Wu and Haoling Li and Xin Zhang and Jiani Guo and Jane Luo and Steven Liu and Yangyu Huang and Ruihang Chu and Scarlett Li and Yujiu Yang},
+      year={2026},
+      eprint={2601.06953},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2601.06953}, 
 }
 ```
 
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
