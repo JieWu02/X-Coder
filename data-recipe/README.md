@@ -17,7 +17,7 @@ data-recipe/
 │   │   └── generate_questions.py # Question generation (API)
 │   ├── run_question_generate.sh # Start question generation (API client)
 │   ├── features_trees_data/
-│   │   └── feature_all.jsonl     # Merged feature dataset (JSONL)
+│   │   └── feature_config_sampled.jsonl     # Feature-config dataset (JSONL)
 │   ├── questions_example.jsonl  # Example questions (JSONL)
 │   └── question_gen_template/     # Codeforces, LeetCode, AtCoder templates
 │
@@ -85,6 +85,9 @@ Input format (feature JSONL, one per line):
 ```jsonl
 {"features": {"problem type": {"subarray manipulation": {"maximum subarray sum": ["Kadane's algorithm", "Divide and Conquer approach"]}}}, "mandatory_features": [], "idx": 0, "leaf_count": 147}
 ```
+
+Feature config files and the full reproducible pipeline (extract/evol/merge/sample) are documented in
+`question_generation/features_trees_data/README.md`.
 
 Output format (question JSONL, one per line):
 ```jsonl

@@ -1,0 +1,112 @@
+Feature Tree Evolution Task:
+You are provided with a feature tree represented as a nested JSON structure. Each node in this tree represents a feature or a sub-feature of competitive algorithm programming, with the leaves being the most specific features. Your task is to expand this feature tree both in depth and breadth.
+Depth expansion means adding more specific sub-features to existing leaves.
+Breadth expnasion means adding more sibling features at the current levels.
+
+Here are some explanations of the features:
+{explanations}
+
+The input feature tree will be provided in JSON format, and your output should be a JSON structure that represents the expanded feature tree.
+
+Output Format:
+- Expanded Feature Tree: Provide the expanded feature tree as a JSON structure. Surround the json with <begin> and <end>.
+
+Input Feature Tree Example:
+{ 
+  "algorithm": {
+    "sorting": ["quick sort", "merge sort"],
+    "tree traversal": ["in-order traversal"]
+  },
+  "mathematics": [
+    "number theory",
+    "combinatorics"
+  ]
+}
+
+Expanded Feature Tree Example:
+<begin>
+{
+    "algorithms": {
+      "sorting": {
+        "quick sort": ["deterministic quick sort", "randomized quick sort", "3-way partitioning"],
+        "merge sort": ["iterative merge sort", "bottom-up merge sort", "natural merge sort"],
+        "heap sort": ["binary heap sort", "fibonacci heap sort"],
+        "counting sort": [],
+        "radix sort": []
+      },
+      "tree traversal": {
+        "in-order traversal": ["recursive in-order", "morris in-order", "iterative with stack"],
+        "pre-order traversal": ["recursive pre-order", "iterative pre-order"],
+        "post-order traversal": ["recursive post-order", "iterative with two stacks"],
+        "level-order traversal": ["queue-based", "depth tracking"]
+      },
+      "graph algorithms": {
+        "shortest path": ["dijkstra", "bellman-ford", "floyd-warshall"],
+        "minimum spanning tree": ["kruskal", "prim"],
+        "strongly connected components": ["kosaraju", "tarjan"]
+      },
+      "dynamic programming": {
+        "1D": ["kadane's algorithm", "longest increasing subsequence"],
+        "2D": ["knapsack problem", "edit distance"]
+      }
+    },
+    "mathematics": {
+      "number theory": [
+        "prime factorization",
+        "sieve of eratosthenes",
+        "modular arithmetic",
+        "euler's totient function",
+        "extended euclidean algorithm"
+      ],
+      "combinatorics": [
+        "permutations",
+        "combinations",
+        "binomial coefficients",
+        "burnside's lemma",
+        "stars and bars"
+      ],
+      "linear algebra": [
+        "matrix operations",
+        "gaussian elimination",
+        "determinants"
+      ],
+      "game theory": [
+        "nim game",
+        "sprague-grundy theorem"
+      ]
+    },
+    "data_structures": {
+      "trees": {
+        "binary search tree": ["AVL tree", "red-black tree"],
+        "heap": ["binary heap", "fibonacci heap"],
+        "trie": ["prefix tree", "suffix tree"],
+        "segment tree": ["lazy propagation", "persistent segment tree"]
+      },
+      "advanced structures": {
+        "disjoint set union": ["path compression", "union by rank"],
+        "sparse table": [],
+        "fenwick tree": ["point update", "range update"]
+      }
+    },
+    "problem_solving_strategies": {
+      "greedy algorithms": ["activity selection", "huffman coding"],
+      "divide and conquer": ["merge sort", "binary search"],
+      "backtracking": ["n-queens", "sudoku solver"],
+      "simulation": ["event-driven", "time-based"]
+    }
+}
+<end>
+
+
+Constraints:
+1. For breadth expansion, add at least 2 new sibling features to each existing node.
+2. For deep expansion, you need to add new sub-features to it, provided that you think the current leaf node has a more fine-grained feature.
+3. Focus on generating new and innovative features that are not present in the provided examples.
+4. The features are related to competitive algorithm programming.
+Please follow the above constraints and expand the feature tree accordingly.
+
+Input:
+{features}
+
+Output:
+<begin>expanded feature tree<end>

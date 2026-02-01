@@ -1,0 +1,181 @@
+Extract features from the provided problem description and solution code, focusing on aspects relevant to competitive programming, algorithmic problem-solving (e.g., LeetCode, Codeforces). Follow the requirements for each category below, formatting the output as a JSON structure enclosed in <begin> and <end>.
+
+Responses should be concise and organized in the specified JSON format. Categories may include nested structures. Aim to categorize features accurately and avoid significant overlap where possible (e.g., if DP is the main paradigm and technique, list it under both).
+
+<begin>{
+    "programming_language": [
+        "Python"
+    ],
+    "problem_domain": [
+        "Graph Theory",
+        "Number Theory"
+    ],
+    "algorithmic_paradigm": [
+        "Dynamic Programming",
+        "Greedy",
+        "Divide and Conquer"
+    ],
+    "algorithms": {
+        "graph_algorithms": [
+            "BFS",
+            "Dijkstra's algorithm"
+        ],
+        "dynamic_programming": [
+            "Knapsack DP",
+            "Bitmask DP"
+        ],
+        "string_algorithms": [
+            "KMP",
+            "Hashing"
+        ],
+        "mathematical_algorithms": [
+            "Modular Exponentiation",
+            "GCD"
+        ],
+        "search_algorithms": [
+            "Binary Search"
+        ],
+        "sorting_algorithms": [
+            "MergeSort"
+        ],
+        "geometric_algorithms": [
+            "Convex Hull"
+        ]
+    },
+    "mathematics": {
+        "number_theory": [
+            "Prime factorization",
+            "Modular arithmetic"
+        ],
+        "combinatorics": [
+            "Permutations",
+            "Combinations"
+        ],
+        "probability": [
+            "Expected value",
+            "Conditional probability"
+        ],
+        "linear_algebra": [
+            "Matrix operations",
+            "Gaussian elimination"
+        ],
+        "calculus": [
+            "Integration techniques",
+            "Differentiation"
+        ],
+        "game_theory": [
+            "Nim game",
+            "Sprague-Grundy theorem"
+        ]
+    },
+    "problem_solving_strategies": {
+        "incremental_approach": [
+            "Build solution step by step",
+            "Gradual refinement"
+        ],
+        "case_analysis": [
+            "Identify different scenarios",
+            "Handle edge cases explicitly"
+        ],
+        "transformation": [
+            "Problem reduction",
+            "Problem reformulation"
+        ],
+        "mathematical_modeling": [
+            "Graph modeling",
+            "Set theory modeling"
+        ],
+        "pattern_recognition": [
+            "Identifying recurring patterns",
+            "Using known problem templates"
+        ],
+        "heuristic_approach": [
+            "Rule of thumb techniques",
+            "Approximation methods"
+        ]
+    },
+    "data_structures": [
+        "Array",
+        "Priority Queue (Heap)",
+        "Segment Tree",
+        "Disjoint Set Union (DSU)",
+        "Map/Dictionary"
+    ],
+    "coding_techniques": [
+        "Recursion",
+        "Iteration",
+        "Bit Manipulation",
+        "Two Pointers",
+        "Sliding Window",
+        "Fast I/O (if identifiable)"
+    ],
+    "complexity_analysis": [
+        "Time Complexity: O(N log N)",
+        "Space Complexity: O(N)"
+    ],
+    "optimization_techniques": [
+        "Memoization",
+        "Meet-in-the-Middle",
+        "Pruning"
+    ],
+    "summary": "Solves a shortest path problem on a weighted graph using Dijkstra's algorithm implemented with a priority queue, with modular arithmetic for handling large numbers."
+}<end>
+
+Categories to Extract:
+
+1.  **Programming Language (`programming_language`):** The language used (e.g., ["C++", "Python", "Java"]).
+2.  **Problem Domain (`problem_domain`):** The area the problem belongs to (e.g., ["Graph Theory", "String Processing", "Number Theory", "Combinatorics", "Geometry", "Data Structures Query", "Ad-hoc"]).
+3.  **Algorithmic Paradigm (`algorithmic_paradigm`):** The overall strategy used (e.g., ["Greedy", "Dynamic Programming", "Divide and Conquer", "Backtracking", "Brute Force"]).
+4.  **Algorithms (`algorithms`):** Specific algorithms employed. Use subcategories where applicable:
+    * `graph_algorithms`: e.g., ["BFS", "DFS", "Dijkstra", "Floyd-Warshall", "Topological Sort", "MST"]
+    * `dynamic_programming`: e.g., ["Standard DP", "Digit DP", "DP on Trees", "Bitmask DP"]
+    * `string_algorithms`: e.g., ["KMP", "Z-algorithm", "Hashing", "Suffix Array/Tree"]
+    * `mathematical_algorithms`: e.g., ["GCD/LCM", "Modular Arithmetic", "Primality Test", "Combinatorics"]
+    * `search_algorithms`: e.g., ["Binary Search", "Ternary Search"]
+    * `sorting_algorithms`: e.g., ["QuickSort", "MergeSort", "RadixSort"] (if significant to the solution)
+    * `geometric_algorithms`: e.g., ["Convex Hull", "Line Sweep"]
+    * *(Add other relevant algorithm subcategories as needed)*
+5.  **Mathematics (`mathematics`):** Mathematical concepts and techniques used. Use subcategories where applicable:
+    * `number_theory`: e.g., ["Prime numbers", "Modular arithmetic", "GCD/LCM", "Factorization"]
+    * `combinatorics`: e.g., ["Permutations", "Combinations", "Binomial coefficients", "Inclusion-exclusion principle"]
+    * `probability`: e.g., ["Expected value", "Conditional probability", "Random variables"]
+    * `linear_algebra`: e.g., ["Matrix operations", "Gaussian elimination", "Determinants"]
+    * `calculus`: e.g., ["Integration", "Differentiation", "Series"]
+    * `game_theory`: e.g., ["Nim game", "Sprague-Grundy theorem", "Minimax"]
+    * *(Add other relevant mathematics subcategories as needed)*
+6.  **Problem Solving Strategies (`problem_solving_strategies`):** High-level approaches to tackling the problem. Use subcategories where applicable:
+    * `incremental_approach`: e.g., ["Build solution step by step", "Gradual refinement"]
+    * `case_analysis`: e.g., ["Identify different scenarios", "Handle edge cases explicitly"]
+    * `transformation`: e.g., ["Problem reduction", "Problem reformulation"]
+    * `mathematical_modeling`: e.g., ["Graph modeling", "Set theory modeling"]
+    * `pattern_recognition`: e.g., ["Identifying recurring patterns", "Using known problem templates"]
+    * `heuristic_approach`: e.g., ["Rule of thumb techniques", "Approximation methods"]
+    * *(Add other relevant strategy subcategories as needed)*
+7.  **Data Structures (`data_structures`):** Primary data structures used (e.g., ["Array", "Vector", "Map/Dictionary", "Set", "Stack", "Queue", "Priority Queue/Heap", "Tree", "Graph", "Trie", "Segment Tree", "Fenwick Tree/BIT", "Disjoint Set Union (DSU)"]).
+8.  **Coding Techniques (`coding_techniques`):** Specific implementation patterns or styles (e.g., ["Recursion", "Iteration", "Bit Manipulation", "Two Pointers", "Sliding Window", "Fast I/O"]).
+9.  **Complexity Analysis (`complexity_analysis`):** Time and space complexity, if derivable or stated (e.g., ["Time Complexity: O(N log N)", "Space Complexity: O(N)"]).
+10. **Optimization Techniques (`optimization_techniques`):** Specific methods used to improve performance beyond the base algorithm/data structure choice (e.g., ["Memoization", "Pruning", "Meet-in-the-Middle"]).
+11. **Summary (`summary`):** A brief, one-sentence description of what the code does and how.
+
+Extract as many relevant features as possible. If the features for a category cannot be reasonably inferred from the input, use an empty list `[]` for list-based fields or an empty object `{}` for object-based fields (like `algorithms` if none are identified).
+
+Input:
+### Problem:
+{problem}
+### Solution Code:
+{source_code}
+
+Output:
+<begin>{
+    "programming_language": ["your answer"],
+    "problem_domain": ["your answer"],
+    "algorithmic_paradigm": ["your answer"],
+    "algorithms": ["your answer"],
+    "mathematics": ["your answer"],
+    "problem_solving_strategies": ["your answer"],
+    "data_structures": ["your answer"],
+    "coding_techniques": ["your answer"],
+    "complexity_analysis": ["your answer"],
+    "optimization_techniques": ["your answer"],
+    "summary": "your answer"
+}<end>

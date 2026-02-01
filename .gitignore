@@ -41,6 +41,9 @@ Thumbs.db
 *.log
 logs/
 
+# Feature extraction outputs may contain copyrighted problem statements / reference code.
+data-recipe/question_generation/features_trees_data/feature_extracted.jsonl
+
 # Checkpoints
 *.ckpt
 *.pt

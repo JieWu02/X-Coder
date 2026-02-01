@@ -18,9 +18,15 @@ import sys
 from openai import OpenAI
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
-_TEMPLATE_DIR = _SCRIPT_DIR.parent / "question_gen_template"
-if str(_TEMPLATE_DIR) not in sys.path:
-    sys.path.insert(0, str(_TEMPLATE_DIR))
+_QG_ROOT_DIR = _SCRIPT_DIR.parent
+if str(_QG_ROOT_DIR) not in sys.path:
+    # Ensure `question_gen_template/` is importable as a package.
+    sys.path.insert(0, str(_QG_ROOT_DIR))
+
+# Feature-pipeline utilities live under `features_trees_data/utils/`.
+_FEATURE_UTILS_DIR = _QG_ROOT_DIR / "features_trees_data" / "utils"
+if _FEATURE_UTILS_DIR.exists() and str(_FEATURE_UTILS_DIR) not in sys.path:
+    sys.path.insert(0, str(_FEATURE_UTILS_DIR))
 
 from question_gen_template import ATCODER_TEMPLATE, CODEFORCES_TEMPLATE, LEETCODE_TEMPLATE
 from question_gen_template.select_feature import STAGE1_PROMPT_TEMPLATE
@@ -55,6 +61,13 @@ def load_jsonl_file(file_path: str) -> List[Dict]:
             for line_num, line in enumerate(f, 1):
                 if not line.strip():
                     continue
+                if line_num == 1 and line.strip() == "version https://git-lfs.github.com/spec/v1":
+                    print(
+                        "❌ This looks like a Git LFS pointer file, not real JSONL data.\n"
+                        "   - If you have git-lfs: run `git lfs pull`.\n"
+                        "   - Or generate a local sample via `question_generation/features_trees_data/utils/sample_feature_configs.py`."
+                    )
+                    return []
                 try:
                     record = json.loads(line)
                 except json.JSONDecodeError as exc:
@@ -92,6 +105,9 @@ def load_features_from_file(features_file_override: Optional[str] = None) -> Tup
         print(f"⚠️ Custom features file not found: {override_path}")
 
     candidates = [
+        # Preferred: sampled feature configs produced from the merged feature tree.
+        repo_root / "question_generation" / "features_trees_data" / "feature_config_sampled.jsonl",
+        # Back-compat: older filename used in this repo.
         repo_root / "question_generation" / "features_trees_data" / "feature_all.jsonl",
         base_dir / "feature_set" / "features_set_with_leaf_nodes_12_to_15_no_overlap_dedup.json",
         base_dir / "feature_set" / "features_with_leaf_node_greater_than20.json",
@@ -102,7 +118,10 @@ def load_features_from_file(features_file_override: Optional[str] = None) -> Tup
             print(f"📁 Using features file: {candidate}")
             return "dedup" in candidate.name, _load_file(candidate)
 
-    print("💡 Tip: place features in question_generation/features_trees_data/feature_all.jsonl or pass --features-file.")
+    print(
+        "💡 Tip: place features in question_generation/features_trees_data/feature_config_sampled.jsonl "
+        "(or feature_all.jsonl) or pass --features-file."
+    )
     return False, []
 
 
@@ -122,10 +141,16 @@ class PromptRequest:
 
 
 class APIClient:
-    """Utility for issuing chat completion requests against an OpenAI-compatible API."""
+    """Utility for issuing chat completion requests against an API backend.
+
+    Supported providers:
+    - openai: OpenAI-compatible base_url + api_key
+    - aoai: Azure OpenAI (TRAPI-style), using `AzureOpenAI` + AAD token provider (see `features_trees_data/utils/aoai_client.py`)
+    """
 
     def __init__(
         self,
+        api_provider: str,
         api_base_url: str,
         api_key: str,
         model_name: str,
@@ -147,7 +172,10 @@ class APIClient:
         self.top_k = top_k
         self.min_p = min_p
         self.request_timeout = request_timeout
-        self.client = OpenAI(base_url=self.api_base_url, api_key=self.api_key)
+        self.api_provider = api_provider
+        self.client = None
+        if self.api_provider == "openai":
+            self.client = OpenAI(base_url=self.api_base_url, api_key=self.api_key)
 
     def _build_messages(self, prompt: str) -> List[Dict[str, str]]:
         messages: List[Dict[str, str]] = []
@@ -180,9 +208,30 @@ class APIClient:
         return None
 
     def call_single(self, prompt: str) -> Dict:
+        messages = self._build_messages(prompt)
+
+        if self.api_provider == "aoai":
+            try:
+                # Local import so OpenAI-only users don't need `azure-identity`.
+                from aoai_client import chat_completion  # type: ignore
+
+                content = chat_completion(
+                    messages=messages,
+                    deployment=self.model_name or None,
+                    max_tokens=self.max_tokens,
+                    temperature=self.temperature,
+                    top_p=self.top_p,
+                    timeout=float(self.request_timeout) if self.request_timeout else None,
+                )
+                if not content:
+                    return {"success": False, "error": "Empty content in response"}
+                return {"success": True, "content": content}
+            except Exception as exc:  # noqa: BLE001
+                return {"success": False, "error": f"AOAI request failed: {exc}"}
+
         payload = {
             "model": self.model_name,
-            "messages": self._build_messages(prompt),
+            "messages": messages,
             "max_tokens": self.max_tokens,
             "temperature": self.temperature,
             "top_p": self.top_p,
@@ -192,6 +241,8 @@ class APIClient:
         if self.min_p is not None:
             payload["min_p"] = self.min_p
         try:
+            if self.client is None:
+                raise RuntimeError("OpenAI client not initialized")
             response = self.client.chat.completions.create(
                 timeout=self.request_timeout,
                 **payload,
@@ -244,9 +295,11 @@ class MultiStyleTwoStageGenerator:
         self,
         batch_client: APIClient,
         template_weights: Optional[List[float]] = None,
+        min_leaf_count: int = 50,
     ) -> None:
         self.batch_client = batch_client
         self.template_weights = template_weights or [0.7, 0.15, 0.15]
+        self.min_leaf_count = min_leaf_count
 
     # --- JSON cleaning helpers (ported from the original Azure version) ---
     def clean_json_response(self, response_text: str) -> Optional[str]:
@@ -403,9 +456,9 @@ class MultiStyleTwoStageGenerator:
             filtered_tree = self.filter_programming_language_features(features_tree)
             leaf_count = self.count_leaf_nodes(filtered_tree)
             print(f"🔢 Feature tree has {leaf_count} leaf nodes")
-            if leaf_count <= 50:
+            if leaf_count <= self.min_leaf_count:
                 return None, {
-                    "error": f"Feature tree has insufficient leaf nodes: {leaf_count} (required > 50)",
+                    "error": f"Feature tree has insufficient leaf nodes: {leaf_count} (required > {self.min_leaf_count})",
                     "api_call_successful": False,
                     "stage": "stage1",
                 }
@@ -641,6 +694,12 @@ def main():
     parser.add_argument("--end", type=int, default=20000, help="End index (exclusive)")
     parser.add_argument("--output", type=str, default=None, help="Output JSON file path")
     parser.add_argument("--batch-size", type=int, default=64, help="Number of samples per batch")
+    parser.add_argument(
+        "--api-provider",
+        choices=["openai", "aoai"],
+        default=os.getenv("XCODER_API_PROVIDER", "openai"),
+        help="API backend: openai-compatible or Azure OpenAI (TRAPI-style).",
+    )
     parser.add_argument("--api-base", type=str, default=os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1"))
     parser.add_argument("--api-key", type=str, default=os.getenv("OPENAI_API_KEY", ""))
     parser.add_argument("--model-name", type=str, default=os.getenv("OPENAI_MODEL", "deepseek-ai/DeepSeek-R1-0528"))
@@ -649,10 +708,17 @@ def main():
     parser.add_argument("--top-p", type=float, default=0.8)
     parser.add_argument("--top-k", type=int, default=20)
     parser.add_argument("--min-p", type=float, default=0.0)
+    parser.add_argument("--max-tokens", type=int, default=32_768, help="Max output tokens per request.")
     parser.add_argument("--request-timeout", type=int, default=300)
     parser.add_argument("--max-wait-seconds", type=int, default=3600, help="Maximum wait time for batch completion")
     parser.add_argument("--target", type=int, default=16000, help="Target number of successful generations")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for template sampling")
+    parser.add_argument(
+        "--min-leaf-count",
+        type=int,
+        default=50,
+        help="Minimum number of leaf features required (config is skipped if leaf_count <= this value).",
+    )
     parser.add_argument("--template-style", choices=list(QUESTION_TEMPLATES.keys()), default=None,
                         help="Force a specific template style instead of random sampling")
     parser.add_argument("--features-file", type=str, default=None,
@@ -664,7 +730,7 @@ def main():
 
     print(
         "🎯 Generating questions with API two-stage pipeline | "
-        f"base={args.api_base}, model={args.model_name}"
+        f"provider={args.api_provider}, base={args.api_base}, model={args.model_name}"
     )
 
     use_pre_filtered, features_data = load_features_from_file(args.features_file)
@@ -700,18 +766,19 @@ def main():
         return
 
     batch_client = APIClient(
+        api_provider=args.api_provider,
         api_base_url=args.api_base,
         api_key=args.api_key,
         model_name=args.model_name,
         system_prompt=args.system_prompt,
-        max_tokens=32_768,
+        max_tokens=args.max_tokens,
         temperature=args.temperature,
         top_p=args.top_p,
         top_k=args.top_k,
         min_p=args.min_p,
         request_timeout=args.request_timeout,
     )
-    generator = MultiStyleTwoStageGenerator(batch_client=batch_client)
+    generator = MultiStyleTwoStageGenerator(batch_client=batch_client, min_leaf_count=args.min_leaf_count)
 
     results_buffer: List[Dict] = []
     successful = 0
