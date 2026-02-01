@@ -11,13 +11,11 @@ This folder contains the feature artifacts used by X-Coder question generation.
     `question_generation/scripts/generate_questions.py`.
 
 - `feature_evoled.json`
-  - A merged, tree-structured feature taxonomy produced by the EpiCoder `extract + evol + merge` pipeline.
+  - A merged, tree-structured feature taxonomy produced by the `extract + evol + merge` pipeline.
   - Used as the default input tree for `question_generation/features_trees_data/utils/sample_feature_configs.py`.
 
 - `feature_extracted.jsonl`
-  - Per-problem extracted records (JSONL) produced by the EpiCoder `extract` stage.
-  - Note: this may include original problem statements / reference code and is often **not** safe to
-    redistribute in a public repo.
+  - Per-problem extracted records (JSONL) produced by the `extract` stage.
 
 ## Prepare `feature_config_sampled.jsonl` (from EpiCoder outputs)
 
