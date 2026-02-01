@@ -52,11 +52,11 @@ For the full data synthesis workflow (question/answer/test generation), see [dat
 ## News
 
 
-- Feb 1: Added feature extraction, evolution, and sampling scripts.
-- Feb 1: Incorporated suggestions from reviewers.
-- Jun 31: X-Coder achieves 1.6k downloads in huggingface. Thanks for likes.
-- Jan 6: Paper Released.
-- Jan 5: Dataset, models, and code recipe released.
+- **Feb 1**: Added feature extraction, evolution, and sampling scripts.
+- **Feb 1**: Incorporated suggestions from reviewers.
+- **Jun 31**: X-Coder achieves 1.6k downloads in huggingface. Thanks for likes.
+- **Jan 6**: Paper Released.
+- **Jan 5**: Dataset, models, and code recipe released.
 
 ## Pipeline
 
@@ -206,6 +206,7 @@ If you find this work helpful, please cite:
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
