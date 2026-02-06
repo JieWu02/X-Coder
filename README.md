@@ -18,17 +18,20 @@
 
 <p align="center">
   <a href="https://huggingface.co/IIGroup/X-Coder-SFT-Qwen3-8B">
-    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue" alt="Model">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue" alt="HF Model">
+  </a> &nbsp;
+  <a href="https://modelscope.cn/models/IIGroup/X-Coder-SFT-Qwen3-8B">
+    <img src="https://img.shields.io/badge/ModelScope-Model-624aff" alt="ModelScope Model">
   </a> &nbsp;
   <a href="https://huggingface.co/datasets/IIGroup/X-Coder-SFT-376k">
-    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-SFT%20Data-yellow" alt="SFT Data">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-SFT%20Data-yellow" alt="HF SFT Data">
+  </a> &nbsp;
+  <a href="https://modelscope.cn/datasets/IIGroup/X-Coder-SFT-376k">
+    <img src="https://img.shields.io/badge/ModelScope-SFT%20Data-624aff" alt="ModelScope SFT Data">
   </a> &nbsp;
   <a href="https://huggingface.co/datasets/IIGroup/X-Coder-RL-40k">
-    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-RL%20Data-green" alt="RL Data">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-RL%20Data-green" alt="HF RL Data">
   </a> &nbsp;
-  <!-- <a href="https://openreview.net/forum?id=jp4dzBilqH">
-    <img src="https://img.shields.io/badge/OpenReview-Paper-red" alt="Paper">
-  </a> &nbsp; -->
   <a href="https://arxiv.org/abs/2601.06953">
     <img src="https://img.shields.io/badge/arXiv-2601.06953-b31b1b" alt="arXiv">
   </a>
@@ -205,6 +208,7 @@ If you find this work helpful, please cite:
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
