@@ -57,10 +57,11 @@ For the full data synthesis workflow (question/answer/test generation), see [dat
 
 ## News
 
-- [2026.2.28]: 🔥 X-Coder was reported by tech media [modelscope](https://mp.weixin.qq.com/s/ieEWTEHc6NhvutHtsD8QQw).
-- [2026.2.6]: 🔥 X-Coder datasets achieved 4.5k downloads in huggingface.
-- [2026.2.1]: Incorporated suggestions from reviewers.
-- [2026.1.5]:  🔥 Dataset, models, and code recipe released.
+- [2026.02.28]: 🔥 X-Coder was reported by tech media [modelscope](https://mp.weixin.qq.com/s/ieEWTEHc6NhvutHtsD8QQw).
+- [2026.02.06]: Datasets and models are available in [modelscope](https://huggingface.co/datasets/IIGroup/X-Coder-SFT-376k).
+- [2026.02.06]: 🔥 X-Coder datasets achieved 4.5k downloads in huggingface.
+- [2026.02.01]: Incorporated suggestions from reviewers.
+- [2026.01.05]:  🔥 Dataset, models, and code recipe released.
 
 ## Pipeline
 
@@ -207,6 +208,7 @@ If you find this work helpful, please cite:
 ## License
 
 This project is licensed under the Apache License 2.0.
+
 
 
 
